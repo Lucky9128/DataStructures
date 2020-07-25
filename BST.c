@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
+#include<math.h>
 
  
 struct node
@@ -8,6 +10,14 @@ struct node
     struct node *left,*right;
 };
 
+struct node * GetNewNode(int val)
+{
+    struct node * temp = (struct node *)malloc(sizeof(struct node));
+    temp->val = val;
+    temp->left=NULL;
+    temp->right =NULL;
+    return temp;
+}
 
 void inorder(struct node *root)
 {
@@ -28,6 +38,7 @@ void preorder(struct node *root)
         preorder(root->right);
     }
 }
+
 void postorder(struct node *root)
 {
     if(root!=NULL)
@@ -38,6 +49,7 @@ void postorder(struct node *root)
     }
 }
 
+//insertion with recursion
 struct node * insert(struct node *root, struct node *new)
 {
     if(root==NULL)
@@ -59,14 +71,53 @@ struct node * insert(struct node *root, struct node *new)
     }
 }
 
-void delete(struct node *root,int val)
+//insertion with iteration
+struct node * insert2(struct node *root, int val)
+{
+    if(root==NULL)
+    {
+        root  = GetNewNode(val);
+        return root; 
+    }
+
+    struct node *temp = root;
+    while(1)
+    {
+        if(temp->val>val)
+        {
+            if(temp->left==NULL)
+            {
+                // printf("Adding %d to %d\n",val,temp->val);
+                temp->left = GetNewNode(val);
+                break;
+            }
+            else
+                temp = temp->left;
+        }
+        else
+        {
+            if(temp->right==NULL)
+            {
+                // printf("Adding %d to %d\n",val,temp->val);
+                temp->right = GetNewNode(val);
+                break;
+            }
+            else
+                temp = temp->right;
+        }   
+    }
+    return root;
+}
+
+
+struct node * delete(struct node *root,int val)
 {
     struct node *cur = root;
-    struct node *pre;
-    printf("Searching for started:\n");
+    struct node *pre =NULL;
+    // printf("Searching for started:\n");
     while(cur->val!=val)
     {
-        printf("%d\n",cur->val);
+        // printf("%d\n",cur->val);
         pre=cur;
         if(pre->val<val)
         {
@@ -77,30 +128,59 @@ void delete(struct node *root,int val)
             cur = pre->left;
         }
     }
+    // printf("found the node\n");
     if(cur->left ==NULL && cur->right==NULL)
     {
-        if(pre->val < val)
-            pre->right==NULL;
+        // printf("Node has no child\n");
+        if(pre == NULL)
+        {
+            root = NULL;
+
+        }
+        else if(pre->val < val)
+        {
+            pre->right=NULL;
+        }
         else
-            pre->left==NULL;
+        {
+            pre->left=NULL;
+        }
     }
     else if(cur->left == NULL)
     {
-        printf("sdss\n");
-        if(pre->val<val)
+        // printf("Node has only right child\n");
+        if(pre == NULL)
         {
-        printf("sds3s\n");
+            // printf("removing root node\n");
+            pre = cur->right;
+            cur->val=pre->val;
+            cur->left = pre->left;
+            cur->right = pre->right;
+            free(pre);
+        }
+        else if(pre->val<val)
+        {
+        // printf("sds3s\n");
             pre->right = cur->right;
         }
         else
         {
-        printf("sdss4\n");
+        // printf("sdss4\n");
             pre->left = cur->right;   
         }
     }
     else if(cur->right == NULL)
     {
-        printf("sds2s\n");
+        // printf("Node has only left child\n");   
+        if(pre == NULL)
+        {
+            // printf("removing root node\n");
+            pre = cur->left;
+            cur->val=pre->val;
+            cur->left = pre->left;
+            cur->right = pre->right;
+            free(pre);
+        }
         if(pre->val<val)
         {
             pre->right = cur->left;
@@ -112,7 +192,7 @@ void delete(struct node *root,int val)
     }   
     else
     {
-        struct node pre2=pre;
+        struct node *pre2=pre;
         pre = cur->left;
         while(pre->right!=NULL)
         {
@@ -130,34 +210,44 @@ void delete(struct node *root,int val)
             pre = pre->left;
             
         }
-    }
-
-    
+    }    
+    return root;
 }
 
 void main()
 {
-    struct node *root = NULL;
-    int arr[] = {10,5,15,12,7,4,13,11,17,16,18,22,19,21};
-
-    for(int i=0;i<14;i++)
-    {
-        struct node *temp = (struct node *)malloc(sizeof(struct node));
-        temp->val = arr[i];
-        temp->left=NULL;
-        temp->right=NULL;
-        root = insert(root,temp);
-        // inorder(root);
-        // printf("----------------\n");
+    for(int j=1;j<=pow(2,19);j*=2)
+    {   
+        FILE *fp = fopen("By Recursion.txt","a");
+        // FILE *log = fopen("log.txt","w");
+        struct node *root = NULL;
+        // root = insert2(root,32); 
+        clock_t begin = clock();
+        for(int i=0;i<j;i++)
+        {
+            root=insert(root,GetNewNode(i));
+            // root = insert(root,GetNewNode(i));
+        }
+        // for(int i=j-1;i>=0;i--)
+        // {
+        //     root = delete(root,i);
+        //     // inorder(root);
+        //     // printf("\n");
+        //     // root = insert(root,GetNewNode(i));
+        // }
+        clock_t end = clock();
+        double ts = (double)(end -begin)/CLOCKS_PER_SEC;
+        fprintf(fp,"%d %lf\n",j,ts);
+        printf("%d %lf\n",j,ts);
+        fclose(fp);
     }
-    inorder(root);
-        printf("\n----------------\n");
+    // inorder(root);
+    //     printf("\n----------------\n");
     // preorder(root);
     //     printf("\n----------------\n");
     // postorder(root);
     //     printf("\n----------------\n");
-    delete(root,18);
-
-    inorder(root);
-        printf("\n----------------\n");
+    // delete(root,18);
+    // inorder(root);
+    //     printf("\n----------------\n");
 }

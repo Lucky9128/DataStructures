@@ -20,7 +20,7 @@ int part(int *A, int low, int high)
     int pvt = A[high];
     int i=low-1,j=high;
 
-    for(int j=low;j<=high-1;j++)
+    for(int j=low;j<high;j++)
     {
         if(A[j]<pvt)
         {
@@ -52,7 +52,7 @@ int IndexOf(int *arr,int low,int high,int val)
     while(low<=high)
     {
         int mid  = (low+high)/2;
-        // printf(".");
+        // printf(".");def 
         if(arr[mid]==val)
             return mid;
 
