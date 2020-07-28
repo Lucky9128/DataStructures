@@ -1,0 +1,85 @@
+You are given two arrays A and B of the same length N indexed from 1 to N. You have to perform minimum valid operations to make array A non-decreasing.
+
+A valid operation is as follows:
+
+Choose any integer i between 1 to N -1.
+Swap A[i] with B[i+1].
+Swap A[i+1] with B[i].
+If it is not possible to make the array A non-decreasing, Print -1.
+
+Input Format
+
+First line contains a single integer N.
+
+Second line contains N spaced integers representing A. A[1] A[2] A[3] … A[N].
+
+Third line contains N spaced integers representing B. B[1] B[2] B[3] … B[N].
+
+Constraints
+
+1 <= N <= 18.
+
+1 <= A[i], B[i] <= 50
+
+Output Format
+
+Print a single integer : minimum number of operations required. And if it is impossible - print -1.
+
+Sample Input 0
+
+3
+3 4 3
+3 2 3
+Sample Output 0
+
+1
+Explanation 0
+
+Let's choose i=1
+
+Swap A[1] with B[2]
+
+A = {2,4,3}
+
+B = {3,3,3}
+
+Now swap B[1] with A[2]
+
+A = {2,3,3}
+
+B = {4,3,3}
+
+A becomes non-decreasing.
+
+Sample Input 1
+
+2
+2 1
+1 2
+Sample Output 1
+
+-1
+Sample Input 2
+
+4
+1 2 3 4
+5 6 7 8
+Sample Output 2
+
+0
+Sample Input 3
+
+5
+28 15 22 43 31
+20 22 43 33 32
+Sample Output 3
+
+-1
+Sample Input 4
+
+5
+4 46 6 38 43
+33 15 18 27 37
+Sample Output 4
+
+3

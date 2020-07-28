@@ -1,0 +1,65 @@
+ou are given a string that consists of only the characters ‘0’ , ’1’ and ‘?’.
+
+You have to replace all the occurrences of ‘?’ with either a ‘0’ or a ‘1’ so that the ugliness of the resulting string is minimised.
+
+We define the ugliness of a string S_resultant (that consists of only ‘1’s and ‘0’s) as the largest absolute difference between the number of ‘1’s and number of ‘0’s over all substrings of S_resultant.
+
+Formally, ugliness is defined as:
+
+max over all l,r { | (no. of ‘1’s in substring S_resultant [l,l+1,...,r]) - (no. of ‘0’s in substring S_resultant[l,l+1,...,r]) | } such that 1 <= l <= r <= |S|.
+
+Find the smallest ugliness possible.
+
+Input Format
+
+String S
+
+Constraints
+
+1 <= |S| <= 10^6
+
+Each character of S is either ‘0’,’1’, or ‘?’
+
+Output Format
+
+Print the smallest ugliness possible.
+
+Sample Input 0
+
+0??
+Sample Output 0
+
+1
+Explanation 0
+
+You can make the final string 010 so that the ugliness is 1 (which is the minimum possible)
+
+Sample Input 1
+
+0??0
+Sample Output 1
+
+2
+Explanation 1
+
+If you replace the ?? with 00, the substring S[1,2,3,4] will have ugliness 4.
+
+If you replace the ?? with 01, the substring S[1,2] and S[1,2,3,4] will have ugliness 2.
+
+If you replace the ?? with 10, the substring S[3,4] and S[1,2,3,4] will have ugliness 2.
+
+If you replace the ?? with 11, the substring S[2,3] will have ugliness 2.
+
+Sample Input 2
+
+??00????0??0????0?0??00??1???11?1?1???1?11?111???1
+Sample Output 2
+
+4
+Submissions: 16
+Max Score: 600
+Difficulty: Advanced
+Rate This Challenge:
+
+    
+More
