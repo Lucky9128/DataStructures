@@ -56,19 +56,19 @@ int main(int arg, char *argv[])
     // cout<<Coff(atoi(argv[1]),atoi(argv[2]))<<endl;
     // cout<<DynaCoff(atoi(argv[1]),atoi(argv[2]))<<endl;
 
-    int n = 35;
+    int n = 100;
     int k = n/2;
     time_t a1 = clock();
 
-    cout<<Coff(n,k)<<endl;
+    // cout<<Coff(n,k)<<endl;
     time_t a2 = clock();
     cout<<DynaCoff(n,k)<<endl;
     time_t a3 = clock();
 
-    double d1 = (double)(a2-a1)/CLOCKS_PER_SEC;
+    // double d1 = (double)(a2-a1)/CLOCKS_PER_SEC;
     double d2 = (double)(a3-a2)/CLOCKS_PER_SEC;
 
-    printf("%lf\n",d1);
+    // printf("%lf\n",d1);
     printf("%lf\n",d2);
 
     // cout<<d1<<endl;

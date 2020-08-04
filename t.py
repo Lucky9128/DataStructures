@@ -1,11 +1,6 @@
+from random import randint as rd
 
-
-i=10000
-temp = i
-lst = set()
-while temp % 13 != 0:
-    lst.add(temp)
-    print(temp%13,end=" ")
-    temp = (temp+i)%13
-print()
-print(len(lst))
+lst=[]
+for i in range(12):
+    lst.append(rd(1,10))
+print(lst)
