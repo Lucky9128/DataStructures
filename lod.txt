@@ -1,0 +1,2 @@
+high changed to 0
+new mid -500
