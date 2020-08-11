@@ -55,7 +55,8 @@
 
 from random import randint as rd
 
-# lst=[]
-for i in range(1,5):
-    # lst.append(30-i)
-    print(rd(-15,15))
+lst=[]
+for i in range(1,15):
+    # lst.append(rd(50,100))
+    print(rd(1,500),end=" ")
+print(lst)
